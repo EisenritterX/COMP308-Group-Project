@@ -8,7 +8,7 @@ var GraphQLString = require('graphql').GraphQLString;
 var GraphQLInt = require('graphql').GraphQLInt;
 var GraphQLDate = require('graphql-date');
 
-
+//TODO 1 Create GraphQL Object Type for patient report model
 // Fields
 // body temperature
 // heart rate
@@ -16,3 +16,5 @@ var GraphQLDate = require('graphql-date');
 // respiratory rate
 // report date
 // authorizingnurse
+
+//TODO 2 Create GraphQL Queries
