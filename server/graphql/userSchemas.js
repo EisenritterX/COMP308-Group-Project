@@ -15,12 +15,13 @@ const mongoose = require("mongoose");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { GraphQLInputObjectType, GraphQLFloat } = require('graphql');
 const JWT_SECRET = "some_secret_key"; 
 const jwtExpirySeconds = 300;
 
 //Patient Type
 const PatientType = new GraphQLObjectType({
-    name: "Patient",
+    name: "patient",
     fields: () => ({
         id: {type: GraphQLString},
         fName: {type: GraphQLString},
@@ -32,7 +33,7 @@ const PatientType = new GraphQLObjectType({
 
 //Nurse Type
 const NurseType = new GraphQLObjectType({
-    name: "Nurse",
+    name: "nurse",
     fields: () => ({
         id: {type: GraphQLString},
         fName: {type: GraphQLString},
@@ -44,7 +45,43 @@ const NurseType = new GraphQLObjectType({
         //     type: new GraphQLList(PatientType)
         // }
     })
-})
+});
+
+// Patient Report Type
+// this is the patient report
+const ReportType =  new GraphQLObjectType({
+    name: "report",
+    fields: () => ({
+        id: {type: GraphQLString},
+        patientName: {type: GraphQLString},
+        nurseName: {type: GraphQLString},
+        
+    })
+});
+
+// Alert Type
+// this is the emergency alert that will be sent to the responder
+const AlertType =  new GraphQLObjectType({
+    name: "alert",
+    fields: () => ({
+        id: {type: GraphQLString},
+        patientName: {type: GraphQLString},
+        responderName: {type: GraphQLString},
+        nurseName:{type: GraphQLString}
+    })
+});
+
+// Symptom
+// This is a single symptom that will have a name and a weight 
+const Symptom =  new GraphQLObjectType({
+    name: "report",
+    fields: () => ({
+        id: {type: GraphQLString},
+        symptom: {type: GraphQLString},
+        weight: {type: GraphQLFloat}
+    })
+});
+
 
 
 
