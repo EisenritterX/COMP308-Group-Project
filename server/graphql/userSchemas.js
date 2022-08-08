@@ -44,6 +44,7 @@ const NurseType = new GraphQLObjectType({
         // patients: {
         //     type: new GraphQLList(PatientType)
         // }
+
     })
 });
 
@@ -53,9 +54,13 @@ const ReportType =  new GraphQLObjectType({
     name: "report",
     fields: () => ({
         id: {type: GraphQLString},
-        patientName: {type: GraphQLString},
-        nurseName: {type: GraphQLString},
-        
+        patientId: {type: GraphQLString},
+        nurseId: {type: GraphQLString},
+        bodyTemperature:{type: GraphQLFloat},
+        heartRate:{type:GraphQLInt},
+        bloodPressure:{type: GraphQLInt},
+        respiratoryRate:{type: GraphQLInt},
+        dateFiled:{type: GraphQLDate}        
     })
 });
 
@@ -65,9 +70,9 @@ const AlertType =  new GraphQLObjectType({
     name: "alert",
     fields: () => ({
         id: {type: GraphQLString},
-        patientName: {type: GraphQLString},
-        responderName: {type: GraphQLString},
-        nurseName:{type: GraphQLString}
+        patientId: {type: GraphQLString},
+        responderId: {type: GraphQLString},
+        nurseId:{type: GraphQLString}
     })
 });
 
