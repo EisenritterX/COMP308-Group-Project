@@ -5,7 +5,9 @@ var GraphQLObjectType = require("graphql").GraphQLObjectType;
 var GraphQLNonNull = require("graphql").GraphQLNonNull;
 var GraphQLID = require("graphql").GraphQLID;
 var GraphQLString = require("graphql").GraphQLString;
+var GraphQLBoolean = require("graphql").GraphQLBoolean;
 var GraphQLInt = require("graphql").GraphQLInt;
+var GraphQLFloat = require("graphql").GraphQLFloat;
 var GraphQLDate = require("graphql-date");
 const mongoose = require("mongoose");
 
@@ -14,11 +16,11 @@ var NurseModel = require("../models/Nurse");
 var PatientModel = require("../models/Patient");
 var ReportModel = require("../models/PatientReport");
 
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { GraphQLInputObjectType, GraphQLFloat, GraphQLBoolean } = require("graphql");
-const JWT_SECRET = "some_secret_key";
-const jwtExpirySeconds = 300;
+// const bcrypt = require("bcrypt");
+// const jwt = require("jsonwebtoken");
+// const { GraphQLInputObjectType, GraphQLFloat, GraphQLBoolean } = require("graphql");
+// const JWT_SECRET = "some_secret_key";
+// const jwtExpirySeconds = 300;
 
 //Patient Type
 const PatientType = new GraphQLObjectType({
@@ -79,7 +81,7 @@ const AlertType = new GraphQLObjectType({
 // Symptom
 // This is a single symptom that will have a name and a weight
 const SymptomType = new GraphQLObjectType({
-  name: "report",
+  name: "symptom",
   fields: () => ({
     id: { type: GraphQLString },
     symptom: { type: GraphQLString },
@@ -361,6 +363,6 @@ const mutations = new GraphQLObjectType({
 });
 
 //
-module.exports = new GraphQLSchema({query: queryType, mutation: mutation});
+module.exports = new GraphQLSchema({query: queryType, mutation: mutations});
 
 //TODO: Login mutations
