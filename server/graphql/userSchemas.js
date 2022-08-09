@@ -325,9 +325,42 @@ const mutations = new GraphQLObjectType({
                 return newSymptom
             }
         },
+        updatePatient:{
+            type: PatientType,
+            args:{
+                id: {
+                    name: 'id',
+                    type: new GraphQLNonNull(GraphQLString)
+                },
+                fName:{
+                    type: new GraphQLNonNull(GraphQLString)
+                },
+                lName:{
+                    type: new GraphQLNonNull(GraphQLString)
+                },
+                fName:{
+                    type: new GraphQLNonNull(GraphQLString)
+                },
+                emergency:{
+                    type: new GraphQLNonNull(GraphQLBoolean)
+                },
+                nurseId:{
+                    type: new GraphQLNonNull(GraphQLString)
+                }
+            },
+            resolve:function(root,params){
+                return PatientModel.findByIdAndUpdate(params.id, { emergency:params.emergency
+                     }, function (err) {
+                    if (err) return next(err);
+                  });
+            }
+        }   
         
     }
   }
 });
+
+//
+module.exports = new GraphQLSchema({query: queryType, mutation: mutation});
 
 //TODO: Login mutations
