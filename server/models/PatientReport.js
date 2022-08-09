@@ -12,4 +12,4 @@ const PatientReport = new Schema({
     respiratoryRate:Number,
     dateFiled:Date
 });
-module.exports = mongoose.model('PatientReport', PatientReportSchema)
+module.exports = mongoose.model('PatientReport', PatientReport)
