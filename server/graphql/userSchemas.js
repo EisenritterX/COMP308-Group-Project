@@ -15,6 +15,8 @@ const mongoose = require("mongoose");
 var NurseModel = require("../models/Nurse");
 var PatientModel = require("../models/Patient");
 var ReportModel = require("../models/PatientReport");
+var EmergencyAlertModel = require("../models/EmergencyAlert");
+var SymptomModel = require("../models/SymptomList");
 
 // const bcrypt = require("bcrypt");
 // const jwt = require("jsonwebtoken");
@@ -297,7 +299,7 @@ const mutations = new GraphQLObjectType({
                 }
             },
             resolve:function(root,params){
-                const alertModel = new AlertModel(params);
+                const alertModel = new EmergencyAlertModel(params);
                 const newAlert = alertModel.save();
                 if(!newAlert){
                     throw new Error('Alert Corrupted!');
