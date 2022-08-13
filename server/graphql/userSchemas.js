@@ -333,21 +333,21 @@ const mutations = new GraphQLObjectType({
                     name: 'id',
                     type: new GraphQLNonNull(GraphQLString)
                 },
-                fName:{
-                    type: new GraphQLNonNull(GraphQLString)
-                },
-                lName:{
-                    type: new GraphQLNonNull(GraphQLString)
-                },
-                fName:{
-                    type: new GraphQLNonNull(GraphQLString)
-                },
+                // fName:{
+                //     type: new GraphQLNonNull(GraphQLString)
+                // },
+                // lName:{
+                //     type: new GraphQLNonNull(GraphQLString)
+                // },
+                // fName:{
+                //     type: new GraphQLNonNull(GraphQLString)
+                // },
                 emergency:{
                     type: new GraphQLNonNull(GraphQLBoolean)
-                },
-                nurseId:{
-                    type: new GraphQLNonNull(GraphQLString)
                 }
+                // nurseId:{
+                //     type: new GraphQLNonNull(GraphQLString)
+                // }
             },
             resolve:function(root,params){
                 return PatientModel.findByIdAndUpdate(params.id, { emergency:params.emergency
