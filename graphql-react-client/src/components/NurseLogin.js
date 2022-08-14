@@ -37,6 +37,7 @@ function NurseLogin(props){
   };
     return(
       <Form>
+      <h1>Nurse Login</h1>
       <Form.Group>
           <Form.Label> Username</Form.Label>
           <Form.Control type="text"  name="username" ref={node => {username = node; }} 

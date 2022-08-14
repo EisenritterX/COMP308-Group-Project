@@ -36,10 +36,11 @@ function PatientSignUp(props){
                         fName: fName.value, lName: lName.value } 
                     });
 
-                    navigate('/patientHome')                    
+                    navigate('/patientLogin')                    
                 } 
             }
             >
+            <h1>Patient Sign Up</h1>
             <Form.Group>
                 <Form.Label> Username</Form.Label>
                 <Form.Control type="text"  name="username" ref={node => {username = node; }} 

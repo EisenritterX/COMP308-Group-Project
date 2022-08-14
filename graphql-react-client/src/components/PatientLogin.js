@@ -35,6 +35,7 @@ function PatientLogin(props){
 
     return (
         <div className="entryform">
+        <h1>Patient Login</h1>
         <Form>
             <Form.Group>
                 <Form.Label> Username</Form.Label>
