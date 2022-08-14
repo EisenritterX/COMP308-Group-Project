@@ -54,10 +54,10 @@ function App() {
           <Route index element={<Home />} />
           <Route path = "home" element={<Home />} />
           <Route path = "addreport" element ={<AddReport/>}/>
-          <Route path = "login" element={<Login/>}/>
+          <Route path = "patientLogin" element={<PatientLogin/>}/>
+          <Route path = "patientSignUp" element={<patientSignUp/>}/>
           <Route path = "status" element={<StatusPage/>}/>
           <Route path = "reportlist" element={<PatientReportList/>}/>
-
 
         </Routes>
     </div>
