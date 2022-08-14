@@ -29,6 +29,8 @@ const PatientType = new GraphQLObjectType({
   name: "patient",
   fields: () => ({
     id: { type: GraphQLString },
+    username: { type: GraphQLString },
+    password: { type: GraphQLString },
     fName: { type: GraphQLString },
     lName: { type: GraphQLString },
     emergency: { type: GraphQLBoolean }, //true if emergency attention is required
@@ -41,6 +43,8 @@ const NurseType = new GraphQLObjectType({
   name: "nurse",
   fields: () => ({
     id: { type: GraphQLString },
+    username: { type: GraphQLString },
+    password: { type: GraphQLString },
     fName: { type: GraphQLString },
     lName: { type: GraphQLString },
     //if there is a 1-1 relationship
@@ -204,6 +208,12 @@ const mutations = new GraphQLObjectType({
         addPatient:{
             type: PatientType,
             args:{
+                username:{
+                    type: new GraphQLNonNull(GraphQLString)
+                },
+                password:{
+                    type: new GraphQLNonNull(GraphQLString)
+                },
                 fName:{
                     type: new GraphQLNonNull(GraphQLString)
                 },
@@ -231,7 +241,13 @@ const mutations = new GraphQLObjectType({
         },
         addNurse:{
             type: NurseType,
-            args:{
+                args:{
+                  username:{
+                    type: new GraphQLNonNull(GraphQLString)
+                },
+                password:{
+                    type: new GraphQLNonNull(GraphQLString)
+                },
                 fName:{
                     type: new GraphQLNonNull(GraphQLString)
                 },
