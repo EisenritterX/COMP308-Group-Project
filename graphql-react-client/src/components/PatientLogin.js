@@ -5,6 +5,12 @@ import { gql, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import PatientHome from './PatientHome'
 
+const LOGIN_USER = gql`
+    mutation LoginPatient( $username: String, $password: String ) {
+        loginPatient( username: $username, password: $password  )
+    }
+`;
+
 function PatientLogin(props){
 
     //state variable for login
@@ -12,19 +18,20 @@ function PatientLogin(props){
     const [id, setId] = useState('auth');
     let [username, setUsername] = useState();
     let [password, setPassword] = useState();
+    const [loginUser, { data, loading, error }] = useMutation(LOGIN_USER);
 
     const authenticateUser = async () => {
         try {
             console.log("authenticate user");
-            // const results = await loginUser( { variables: { studentNumber: studentNumber.value, 
-            //     password: password.value }  });
-            // const {data} = results;
-            // const loginUserVar = data.loginUser;
-            // console.log('results from login user:',loginUserVar)
-            // if (results !== undefined) {
-            //     setId(loginUserVar);
-            // }
-            navigate('/patientHome')
+            const results = await loginUser( { variables: { username: username.value, 
+                password: password.value }  });
+            const {data} = results;
+            const loginUserVar = data.loginUser;
+            console.log('results from login user:',loginUserVar)
+            if (results !== undefined) {
+                setId(loginUserVar);
+                navigate('/patientHome')
+            }
 
         }
         catch (error) {
