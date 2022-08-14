@@ -28,7 +28,6 @@ import Login from './components/PatientLogin';
 import StatusPage from './components/StatusPage';
 import PatientReportList from './components/ReportList';
 
-
 //
 function App() {
 
@@ -57,6 +56,7 @@ function App() {
           <Route path = "login" element={<Login/>}/>
           <Route path = "status" element={<StatusPage/>}/>
           <Route path = "reportlist" element={<PatientReportList/>}/>
+
 
 
         </Routes>
