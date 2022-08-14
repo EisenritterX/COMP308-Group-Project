@@ -29,6 +29,7 @@ import NurseNavBar from './components/NurseNavBar';
 
 import PatientReportList from './components/ReportList';
 import AddReport from './components/AddReport';
+// import StatusPage from './components/Sta'
 
 
 //
@@ -39,6 +40,8 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
 
+
+          {/* <Route path = "status" element={<StatusPage/>}/> */}
           <Route path = "/" element={<Home />}>
             <Route path = "patientSignUp" element={<PatientSignUp/>}/>
             <Route path = "patientLogin" element={<PatientLogin/>}/>
