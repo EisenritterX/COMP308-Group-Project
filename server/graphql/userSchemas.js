@@ -220,9 +220,6 @@ const mutations = new GraphQLObjectType({
                 lName:{
                     type: new GraphQLNonNull(GraphQLString)
                 },
-                // fName:{
-                //     type: new GraphQLNonNull(GraphQLString)
-                // },
                 // emergency:{
                 //     type: new GraphQLNonNull(GraphQLBoolean)
                 // },
