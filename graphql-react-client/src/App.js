@@ -58,6 +58,7 @@ function App() {
           <Route path = "status" element={<StatusPage/>}/>
           <Route path = "reportlist" element={<PatientReportList/>}/>
 
+
         </Routes>
     </div>
       
