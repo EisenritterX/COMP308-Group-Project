@@ -18,7 +18,7 @@ import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import './App.css';
 // ADD COMPONENTS HERE
-// import StudentList from './components/StudentList';
+import AddReport from './components/AddReport';
 // import AddStudent from './components/AddStudent';
 // import EditStudent from './components/EditStudent';
 // import DeleteStudent from './components/DeleteStudent';
@@ -40,6 +40,7 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link as={Link} to="/home" >Home</Nav.Link>
+              <Nav.Link as ={Link} to="/addreport">Add Patient Report</Nav.Link>
 
             </Nav>
           </Navbar.Collapse>
@@ -49,7 +50,8 @@ function App() {
       <div>
         <Routes>
           <Route index element={<Home />} />
-          <Route path = "home" element={<Home />} /> 
+          <Route path = "home" element={<Home />} />
+          <Route path = "addreport" element ={<AddReport/>}/>
           <Route path = "login" element={<Login/>}/>
           <Route path = "status" element={<StatusPage/>}/>
         </Routes>
