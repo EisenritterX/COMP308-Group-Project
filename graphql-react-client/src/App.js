@@ -26,6 +26,7 @@ import AddReport from './components/AddReport';
 import Home from './components/Home';
 import Login from './components/PatientLogin';
 import StatusPage from './components/StatusPage';
+import PatientReportList from './components/ReportList';
 
 //
 function App() {
