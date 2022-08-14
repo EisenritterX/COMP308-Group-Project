@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import PatientHome from './PatientNavBar'
 
 const LOGIN_USER = gql`
-    mutation loginUser( $username: String, $password: String ) {
-        loginUser( username: $username, password: $password  )
+    mutation loginPatient( $username: String, $password: String ) {
+        loginPatient( username: $username, password: $password  )
     }
 `;
 
@@ -18,18 +18,18 @@ function PatientLogin(props){
     const [id, setId] = useState('auth');
     let [username, setUsername] = useState();
     let [password, setPassword] = useState();
-    const [loginUser, { data, loading, error }] = useMutation(LOGIN_USER);
+    const [loginPatient, { data, loading, error }] = useMutation(LOGIN_USER);
 
     const authenticateUser = async () => {
         try {
             console.log("authenticate user");
-            const results = await loginUser( { variables: { username: username.value, 
+            const results = await loginPatient( { variables: { username: username.value, 
                 password: password.value }  });
             const {data} = results;
-            const loginUserVar = data.loginUser;
-            console.log('results from login user:',loginUserVar)
+            const loginPatientVar = data.loginPatient;
+            console.log('results from login user:',loginPatientVar)
             if (results !== undefined) {
-                setId(loginUserVar);
+                setId(loginPatientVar);
                 navigate('/patientNavBar')
             }
 
