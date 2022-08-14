@@ -25,6 +25,7 @@ import AddReport from './components/AddReport';
 
 import Home from './components/Home';
 import Login from './components/PatientLogin';
+import StatusPage from './components/StatusPage';
 
 //
 function App() {
@@ -56,6 +57,7 @@ function App() {
           <Route path = "reportlist" element={<PatientReportList/>}/>
 
           <Route path = "login" element={<Login/>}/>
+          <Route path = "status" element={<StatusPage/>}/>
         </Routes>
     </div>
       
