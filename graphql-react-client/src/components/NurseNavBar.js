@@ -16,7 +16,7 @@ import Container from 'react-bootstrap/Container';
 
 import ReportList from './ReportList';
 
-function NurseHome(props){
+function NurseNavBar(props){
     return(
         <div>
         <Navbar bg="primary" variant="dark" expand="lg">
@@ -37,4 +37,4 @@ function NurseHome(props){
     );
 }
 
-export default NurseHome;
+export default NurseNavBar;

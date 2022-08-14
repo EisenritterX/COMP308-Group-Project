@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { gql, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import PatientHome from './PatientHome'
+import PatientHome from './PatientNavBar'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -27,7 +27,7 @@ function NurseLogin(props){
           // if (results !== undefined) {
           //     setId(loginUserVar);
           // }
-          navigate('/nurseHome')
+          navigate('/patientNavBar')
 
       }
       catch (error) {

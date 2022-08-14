@@ -14,7 +14,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 
-function PatientHome(props){
+function PatientNavBar(props){
     return(
         <div>
         <Navbar bg="primary" variant="dark" expand="lg">
@@ -34,4 +34,4 @@ function PatientHome(props){
     );
 }
 
-export default PatientHome;
+export default PatientNavBar;

@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { gql, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import PatientHome from './PatientHome'
+import PatientHome from './PatientNavBar'
 
 const LOGIN_USER = gql`
     mutation LoginPatient( $username: String, $password: String ) {
@@ -30,7 +30,7 @@ function PatientLogin(props){
             console.log('results from login user:',loginUserVar)
             if (results !== undefined) {
                 setId(loginUserVar);
-                navigate('/patientHome')
+                navigate('/patientNavBar')
             }
 
         }

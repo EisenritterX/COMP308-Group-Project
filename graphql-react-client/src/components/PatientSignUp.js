@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { gql, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import PatientHome from './PatientHome'
+import PatientHome from './PatientNavBar'
 
 const CREATE_PATIENT = gql`
 mutation addPatient(

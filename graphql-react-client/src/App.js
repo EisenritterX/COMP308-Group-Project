@@ -23,9 +23,9 @@ import PatientSignUp from './components/PatientSignUp';
 import NurseLogin from './components/NurseLogin';
 import NurseSignUp from './components/NurseSignUp';
 
-import PatientHome from './components/PatientHome';
+import PatientNavBar from './components/PatientNavBar';
 
-import NurseHome from './components/NurseHome';
+import NurseNavBar from './components/NurseNavBar';
 
 import PatientReportList from './components/ReportList';
 import AddReport from './components/AddReport';
@@ -33,7 +33,6 @@ import AddReport from './components/AddReport';
 
 //
 function App() {
-
   return (
     <Router>
       <div>
@@ -47,11 +46,11 @@ function App() {
             <Route path = "nurseSignUp" element={<NurseSignUp/>}/>
           </Route>
 
-          <Route path="/patientHome" element={<PatientHome/>}>
+          <Route path="/patientNavBar" element={<PatientNavBar/>}>
             <Route path = "addReport" element={<AddReport/>}/>
           </Route>
 
-          <Route path="/nurseHome" element={<NurseHome/>}>
+          <Route path="/patientNavBar" element={<NurseNavBar/>}>
             <Route path = "reportList" element={<PatientReportList/>}/>
             <Route path = "addReport" element={<AddReport/>}/>
           </Route>
