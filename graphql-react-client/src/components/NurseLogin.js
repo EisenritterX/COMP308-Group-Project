@@ -7,7 +7,11 @@ import PatientHome from './PatientNavBar'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// ADD COMPONENTS HERE
+const LOGIN_USER = gql`
+    mutation loginUser( $username: String, $password: String ) {
+        loginUser( username: $username, password: $password  )
+    }
+`;
 
 function NurseLogin(props){
   //state variable for login
@@ -15,25 +19,25 @@ function NurseLogin(props){
   const [id, setId] = useState('auth');
   let [username, setUsername] = useState();
   let [password, setPassword] = useState();
+  const [loginUser, { data, loading, error }] = useMutation(LOGIN_USER);
 
   const authenticateUser = async () => {
-      try {
-          console.log("authenticate user");
-          // const results = await loginUser( { variables: { studentNumber: studentNumber.value, 
-          //     password: password.value }  });
-          // const {data} = results;
-          // const loginUserVar = data.loginUser;
-          // console.log('results from login user:',loginUserVar)
-          // if (results !== undefined) {
-          //     setId(loginUserVar);
-          // }
-          navigate('/patientNavBar')
+    try {
+        console.log("authenticate user");
+        const results = await loginUser( { variables: { username: username.value, 
+            password: password.value }  });
+        const {data} = results;
+        const loginUserVar = data.loginUser;
+        console.log('results from login user:',loginUserVar)
+        if (results !== undefined) {
+            setId(loginUserVar);
+            navigate('/nurseNavBar')
+        }
 
-      }
-      catch (error) {
-          console.log(error);
-      }
-
+    }
+    catch (error) {
+        console.log(error);
+    }
   };
     return(
       <Form>

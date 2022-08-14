@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import PatientHome from './PatientNavBar'
 
 const LOGIN_USER = gql`
-    mutation LoginPatient( $username: String, $password: String ) {
-        loginPatient( username: $username, password: $password  )
+    mutation loginUser( $username: String, $password: String ) {
+        loginUser( username: $username, password: $password  )
     }
 `;
 

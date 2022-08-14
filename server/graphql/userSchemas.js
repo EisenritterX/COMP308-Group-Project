@@ -368,7 +368,7 @@ const mutations = new GraphQLObjectType({
                   });
             }
         },
-        loginPatient: {
+        loginUser: {
           type: GraphQLString,
           args: {
             username: {
@@ -414,5 +414,3 @@ const mutations = new GraphQLObjectType({
 
 //
 module.exports = new GraphQLSchema({query: queryType, mutation: mutations});
-
-//TODO: Login mutations
