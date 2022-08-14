@@ -24,6 +24,7 @@ import './App.css';
 // import DeleteStudent from './components/DeleteStudent';
 
 import Home from './components/Home';
+import Login from './components/PatientLogin';
 
 //
 function App() {
@@ -48,7 +49,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path = "home" element={<Home />} /> 
-
+          <Route path = "login" element={<Login/>}/>
         </Routes>
     </div>
       
