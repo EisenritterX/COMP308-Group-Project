@@ -7,16 +7,18 @@ import StatusPage from './StatusPage'
 
 const CREATE_PATIENT = gql`
 mutation addPatient(
-    $username: String,  
-    $password: String, 
-    $fName: String,         
-    $lName: String, 
+    $username: String!,  
+    $password: String!, 
+    $fName: String!,         
+    $lName: String!, 
     ) {
     addPatient(
         username: $username,  
         password: $password,
         fName: $fName,      
-        lName: $lName)
+        lName: $lName){
+            username
+        }
     }`;
 
 function PatientSignUp(props){
