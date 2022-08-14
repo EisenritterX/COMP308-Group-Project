@@ -26,6 +26,7 @@ import AddReport from './components/AddReport';
 import Home from './components/Home';
 import Login from './components/PatientLogin';
 import StatusPage from './components/StatusPage';
+import PatientReportList from './components/ReportList';
 
 //
 function App() {
@@ -41,7 +42,7 @@ function App() {
             <Nav className="mr-auto">
               <Nav.Link as={Link} to="/home" >Home</Nav.Link>
               <Nav.Link as ={Link} to="/addreport">Add Patient Report</Nav.Link>
-
+              <Nav.Link as ={Link} to="/reportlist">Patient Report List</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -54,6 +55,9 @@ function App() {
           <Route path = "addreport" element ={<AddReport/>}/>
           <Route path = "login" element={<Login/>}/>
           <Route path = "status" element={<StatusPage/>}/>
+          <Route path = "reportlist" element={<PatientReportList/>}/>
+
+
         </Routes>
     </div>
       
