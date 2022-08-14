@@ -29,6 +29,7 @@ import PatientSignUp from './components/PatientSignUp';
 import StatusPage from './components/StatusPage';
 import PatientReportList from './components/ReportList';
 
+
 //
 function App() {
 
@@ -52,7 +53,7 @@ function App() {
       <div>
         <Routes>
           <Route index element={<Home />} />
-          <Route path = "home" element={<Home />} />
+          <Route path = "home" element={<Home />} /> 
           <Route path = "addreport" element ={<AddReport/>}/>
           <Route path = "patientLogin" element={<PatientLogin/>}/>
           <Route path = "patientSignUp" element={<PatientSignUp/>}/>
