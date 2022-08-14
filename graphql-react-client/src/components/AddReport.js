@@ -9,52 +9,60 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const ADD_REPORT = gql`
-  mutation AddReport(
-    $patientId: String!
-    $nurseId: String!
-    $bodyTemperature: Number!
-    $heartRate: Number!
-    $bloodPressure: Number!
-    $respiratoryRate: Number
-    $dateFiled: Date
-  ) {
-    addReport(
-      patientId: $patientId
-      nurseId: $nurseId
-      bodyTemperature: $bodyTemperature
-      heartRate: $heartRate
-      bloodPressure: $bloodPressure
-      respiratoryRate: $respiratoryRate
-      dateFiled: $dateFiled
-    )
-    _id
+mutation AddReport(
+  $patientId: String!,
+  $nurseId: String!,
+  $bodyTemperature: Float!,
+  $heartRate: Int!,
+  $bloodPressure: Int!,
+  $respiratoryRate: Int!,
+  $dateFiled: Date!
+) {
+  addReport(
+    patientId: $patientId,
+    nurseId: $nurseId,
+    bodyTemperature: $bodyTemperature,
+    heartRate: $heartRate,
+    bloodPressure: $bloodPressure,
+    respiratoryRate: $respiratoryRate,
+    dateFiled: $dateFiled
+  ){
+    nurseId
   }
+}
 `;
 
 const AddReport = () => {
   //
   let navigate = useNavigate();
   let { patientId, nurseId } = useParams();
-  let bodyTemperature, heartRate, bloodPressure, respiratoryRate, dateFiled;
+  let bodyTemperature, heartRate, bloodPressure, respiratoryRate,dateFiled;
+  // let dateFiled = new Date();
   const [addReport, { data, loading, error }] = useMutation(ADD_REPORT);
 
   if (loading) return "Submitting Report...";
   if (error) return `Submission error! ${error.message}`;
 
+  console.log(patientId,nurseId);
+
   return (
     <div className="entryform">
       <form
         onSubmit={(e) => {
+
+
           e.preventDefault();
+          patientId= "02";
+          nurseId= "04";
           addReport({
-            variable: {
+            variables: {
               patientId: patientId,
               nurseId: nurseId,
               bodyTemperature: parseFloat(bodyTemperature.value),
               heartRate: parseInt(heartRate.value),
               bloodPressure: parseInt(bloodPressure.value),
               respiratoryRate: parseInt(respiratoryRate.value),
-              dateFiled: new Date().toISOString().slice(0, 10),
+              dateFiled: new Date().toISOString(),
             },
           });
           //
@@ -62,9 +70,35 @@ const AddReport = () => {
           heartRate.value = "";
           bloodPressure.value = "";
           respiratoryRate.value = "";
-          navigate("/status");
+          navigate("/nurseNavBar/reportList");
         }}
       >
+        {/* <Form.Group>
+        <Form.Label> Patient ID</Form.Label>
+          <InputGroup className="mb-3">
+            <Form.Control
+              type="number"
+              name="patientId"
+              ref={(node) => {
+                nurseId = nurseId;
+              }}
+              placeholder={nurseId}
+            />
+          </InputGroup>
+        </Form.Group>
+        <Form.Group>
+        <Form.Label> Nurse ID</Form.Label>
+          <InputGroup className="mb-3">
+            <Form.Control
+              type="number"
+              name="nurseId"
+              ref={(node) => {
+                patientId = patientId;
+              }}
+              placeholder={patientId}
+            />
+          </InputGroup>
+        </Form.Group> */}
         <Form.Group>
           <Form.Label> Body Temperature</Form.Label>
           <InputGroup className="mb-3">
