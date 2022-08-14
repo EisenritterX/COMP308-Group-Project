@@ -32,7 +32,7 @@ const ReportList=()=>{
                         <th>respiratoryRate</th>
                         <th>dateFiled</th>
                     </tr>
-                    {data.students.map((report,index)=>(
+                    {data.reports.map((report,index)=>(
                         <tr key={index}>
                             <td>{report._id}</td>
                             <td>{report.patientId}</td>
@@ -45,9 +45,9 @@ const ReportList=()=>{
                         </tr>
                     ))}
                 </tbody>
-            </Table>
+            </Table> 
 
-            <div className="center">
+             <div className="center">
                 <button className='center' onClick={()=>refetch()}>
                     Refetch
                 </button>

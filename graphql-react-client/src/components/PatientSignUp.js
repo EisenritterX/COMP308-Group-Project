@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { gql, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import StatusPage from './StatusPage'
+import PatientHome from './PatientHome'
 
 const CREATE_PATIENT = gql`
 mutation addPatient(
@@ -36,10 +36,11 @@ function PatientSignUp(props){
                         fName: fName.value, lName: lName.value } 
                     });
 
-                    navigate('/home')                    
+                    navigate('/patientLogin')                    
                 } 
             }
             >
+            <h1>Patient Sign Up</h1>
             <Form.Group>
                 <Form.Label> Username</Form.Label>
                 <Form.Control type="text"  name="username" ref={node => {username = node; }} 
