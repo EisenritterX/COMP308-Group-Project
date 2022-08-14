@@ -8,14 +8,7 @@ import date from 'graphql-date';
 
 const GET_REPORTS = gql`{
     reports{
-        _id
-        patientId
-        nurseId
-        bodyTemperature
-        heartRate
-        bloodPressure
-        respiratoryRate
-        dateFilled
+        id
     }
 }`;
 
