@@ -26,7 +26,13 @@ import AddReport from './components/AddReport';
 import Home from './components/Home';
 import PatientLogin from './components/PatientLogin';
 import PatientSignUp from './components/PatientSignUp';
-import StatusPage from './components/StatusPage';
+import NurseLogin from './components/NurseLogin';
+import NurseSignUp from './components/NurseSignUp';
+
+import PatientHome from './components/PatientHome';
+
+import NurseHome from './components/NurseHome';
+
 import PatientReportList from './components/ReportList';
 
 
@@ -35,7 +41,7 @@ function App() {
 
   return (
     <Router>
-      
+{/*       
       <Navbar bg="primary" variant="dark" expand="lg">
         <Container>
           <Navbar.Brand href="home">COMP308 Group Project</Navbar.Brand>
@@ -49,19 +55,29 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
+  */}
       <div>
         <Routes>
           <Route index element={<Home />} />
-          <Route path = "home" element={<Home />} /> 
-          <Route path = "addreport" element ={<AddReport/>}/>
-          <Route path = "patientLogin" element={<PatientLogin/>}/>
-          <Route path = "patientSignUp" element={<PatientSignUp/>}/>
-          <Route path = "status" element={<StatusPage/>}/>
-          <Route path = "reportlist" element={<PatientReportList/>}/>
 
+          <Route path = "/" element={<Home />}>
+            <Route path = "patientSignUp" element={<PatientSignUp/>}/>
+            <Route path = "patientLogin" element={<PatientLogin/>}/>
+            <Route path = "nurseLogin" element={<NurseLogin/>}/>
+            <Route path = "nurseSignUp" element={<NurseSignUp/>}/>
+          </Route>
+
+          <Route path="/patientHome" element={<PatientHome/>}>
+            {/* Patient Navs Here */}
+          </Route>
+
+          <Route path="/nurseHome" element={<NurseHome/>}>
+            <Route path = "reportList" element={<PatientReportList/>}/>
+          </Route>
+
+          <Route path = "addreport" element ={<AddReport/>}/>
         </Routes>
-    </div>
+    </div> 
       
       
 

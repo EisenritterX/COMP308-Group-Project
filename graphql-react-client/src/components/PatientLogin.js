@@ -3,11 +3,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { gql, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import StatusPage from './StatusPage'
+import PatientHome from './PatientHome'
 
 function PatientLogin(props){
 
     //state variable for login
+    const navigate = useNavigate();
     const [id, setId] = useState('auth');
     let [username, setUsername] = useState();
     let [password, setPassword] = useState();
@@ -23,6 +24,8 @@ function PatientLogin(props){
             // if (results !== undefined) {
             //     setId(loginUserVar);
             // }
+            navigate('/patientHome')
+
         }
         catch (error) {
             console.log(error);
@@ -32,8 +35,6 @@ function PatientLogin(props){
 
     return (
         <div className="entryform">
-        {id === 'auth' 
-        ? <div>
         <Form>
             <Form.Group>
                 <Form.Label> Username</Form.Label>
@@ -49,9 +50,6 @@ function PatientLogin(props){
 
             <Button size = "lg" variant="primary" type="Button" onClick={authenticateUser}>Login</Button>
             </Form>
-            </div>
-            : <StatusPage />
-        }
         </div>
     );
 }
