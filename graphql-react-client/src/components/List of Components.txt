@@ -1,10 +1,10 @@
-Home
-Login
-Registration - Nurse & Patient
-Make New Report
-Symptom
+Home : Abi
+Login : Abi
+Registration - Nurse & Patient: Abi
+Make New Report : George
+Symptom 
 Make New Alert
-List Reports
+List Reports : George
 Fitness Game Page
 Medical Condition Feedback?
 Daily Tip?
