@@ -15,6 +15,8 @@ const mongoose = require("mongoose");
 var NurseModel = require("../models/Nurse");
 var PatientModel = require("../models/Patient");
 var ReportModel = require("../models/PatientReport");
+var EmergencyAlertModel = require("../models/EmergencyAlert");
+var SymptomModel = require("../models/SymptomList");
 
 // const bcrypt = require("bcrypt");
 // const jwt = require("jsonwebtoken");
@@ -27,6 +29,8 @@ const PatientType = new GraphQLObjectType({
   name: "patient",
   fields: () => ({
     id: { type: GraphQLString },
+    username: { type: GraphQLString },
+    password: { type: GraphQLString },
     fName: { type: GraphQLString },
     lName: { type: GraphQLString },
     emergency: { type: GraphQLBoolean }, //true if emergency attention is required
@@ -39,6 +43,8 @@ const NurseType = new GraphQLObjectType({
   name: "nurse",
   fields: () => ({
     id: { type: GraphQLString },
+    username: { type: GraphQLString },
+    password: { type: GraphQLString },
     fName: { type: GraphQLString },
     lName: { type: GraphQLString },
     //if there is a 1-1 relationship
@@ -202,6 +208,12 @@ const mutations = new GraphQLObjectType({
         addPatient:{
             type: PatientType,
             args:{
+                username:{
+                    type: new GraphQLNonNull(GraphQLString)
+                },
+                password:{
+                    type: new GraphQLNonNull(GraphQLString)
+                },
                 fName:{
                     type: new GraphQLNonNull(GraphQLString)
                 },
@@ -229,7 +241,13 @@ const mutations = new GraphQLObjectType({
         },
         addNurse:{
             type: NurseType,
-            args:{
+                args:{
+                  username:{
+                    type: new GraphQLNonNull(GraphQLString)
+                },
+                password:{
+                    type: new GraphQLNonNull(GraphQLString)
+                },
                 fName:{
                     type: new GraphQLNonNull(GraphQLString)
                 },
@@ -297,7 +315,7 @@ const mutations = new GraphQLObjectType({
                 }
             },
             resolve:function(root,params){
-                const alertModel = new AlertModel(params);
+                const alertModel = new EmergencyAlertModel(params);
                 const newAlert = alertModel.save();
                 if(!newAlert){
                     throw new Error('Alert Corrupted!');
@@ -331,21 +349,21 @@ const mutations = new GraphQLObjectType({
                     name: 'id',
                     type: new GraphQLNonNull(GraphQLString)
                 },
-                fName:{
-                    type: new GraphQLNonNull(GraphQLString)
-                },
-                lName:{
-                    type: new GraphQLNonNull(GraphQLString)
-                },
-                fName:{
-                    type: new GraphQLNonNull(GraphQLString)
-                },
+                // fName:{
+                //     type: new GraphQLNonNull(GraphQLString)
+                // },
+                // lName:{
+                //     type: new GraphQLNonNull(GraphQLString)
+                // },
+                // fName:{
+                //     type: new GraphQLNonNull(GraphQLString)
+                // },
                 emergency:{
                     type: new GraphQLNonNull(GraphQLBoolean)
-                },
-                nurseId:{
-                    type: new GraphQLNonNull(GraphQLString)
                 }
+                // nurseId:{
+                //     type: new GraphQLNonNull(GraphQLString)
+                // }
             },
             resolve:function(root,params){
                 return PatientModel.findByIdAndUpdate(params.id, { emergency:params.emergency

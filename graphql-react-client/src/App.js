@@ -24,6 +24,8 @@ import AddReport from './components/AddReport';
 // import DeleteStudent from './components/DeleteStudent';
 
 import Home from './components/Home';
+import Login from './components/PatientLogin';
+import StatusPage from './components/StatusPage';
 
 //
 function App() {
@@ -50,7 +52,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path = "home" element={<Home />} />
           <Route path = "addreport" element ={<AddReport/>}/>
-
+          <Route path = "login" element={<Login/>}/>
+          <Route path = "status" element={<StatusPage/>}/>
         </Routes>
     </div>
       
