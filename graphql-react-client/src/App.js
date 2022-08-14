@@ -39,6 +39,9 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
 
+
+          <Route path = "login" element={<Login/>}/>
+          <Route path = "status" element={<StatusPage/>}/>
           <Route path = "/" element={<Home />}>
             <Route path = "patientSignUp" element={<PatientSignUp/>}/>
             <Route path = "patientLogin" element={<PatientLogin/>}/>
@@ -50,11 +53,10 @@ function App() {
             <Route path = "addReport" element={<AddReport/>}/>
           </Route>
 
-          <Route path="/patientNavBar" element={<NurseNavBar/>}>
+          <Route path="/nurseNavBar" element={<NurseNavBar/>}>
             <Route path = "reportList" element={<PatientReportList/>}/>
             <Route path = "addReport" element={<AddReport/>}/>
           </Route>
-
         </Routes>
     </div> 
       
