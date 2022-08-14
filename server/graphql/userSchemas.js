@@ -220,15 +220,15 @@ const mutations = new GraphQLObjectType({
                 lName:{
                     type: new GraphQLNonNull(GraphQLString)
                 },
-                fName:{
-                    type: new GraphQLNonNull(GraphQLString)
-                },
-                emergency:{
-                    type: new GraphQLNonNull(GraphQLBoolean)
-                },
-                nurseId:{
-                    type: new GraphQLNonNull(GraphQLString)
-                }
+                // fName:{
+                //     type: new GraphQLNonNull(GraphQLString)
+                // },
+                // emergency:{
+                //     type: new GraphQLNonNull(GraphQLBoolean)
+                // },
+                // nurseId:{
+                //     type: new GraphQLNonNull(GraphQLString)
+                // }
             },
             resolve:function(root,params){
                 const patientModel = new PatientModel(params);

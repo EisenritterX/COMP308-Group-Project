@@ -24,7 +24,8 @@ import './App.css';
 // import DeleteStudent from './components/DeleteStudent';
 
 import Home from './components/Home';
-import Login from './components/PatientLogin';
+import PatientLogin from './components/PatientLogin';
+import PatientSignUp from './components/PatientSignUp';
 import StatusPage from './components/StatusPage';
 
 //
@@ -50,7 +51,8 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path = "home" element={<Home />} /> 
-          <Route path = "login" element={<Login/>}/>
+          <Route path = "patientLogin" element={<PatientLogin/>}/>
+          <Route path = "patientSignUp" element={<PatientSignUp/>}/>
           <Route path = "status" element={<StatusPage/>}/>
         </Routes>
     </div>
