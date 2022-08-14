@@ -9,9 +9,12 @@ Fitness Game Page
 Medical Condition Feedback?
 Daily Tip?
 
-Nurse: View Home Page(General), Login, Registration, Make Report, View List of Patient (ALL) & Send Daily Tip, View Reports(List of Reports)
-Patient: View Home Page(General), Patient Status Page, Login, 
-Registration, Make Report, Access Fitness Game Page, Create and Send Alert
+Nurse: 
+View List of Patient (ALL) & Send Daily Tip, 
+
+Patient: 
+Access Fitness Game Page, 
+Create and Send Alert
 
 
 Navigation

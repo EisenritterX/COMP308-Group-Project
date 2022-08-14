@@ -18,11 +18,10 @@ var ReportModel = require("../models/PatientReport");
 var EmergencyAlertModel = require("../models/EmergencyAlert");
 var SymptomModel = require("../models/SymptomList");
 
-// const bcrypt = require("bcrypt");
-// const jwt = require("jsonwebtoken");
-// const { GraphQLInputObjectType, GraphQLFloat, GraphQLBoolean } = require("graphql");
-// const JWT_SECRET = "some_secret_key";
-// const jwtExpirySeconds = 300;
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = "some_secret_key";
+const jwtExpirySeconds = 300;
 
 //Patient Type
 const PatientType = new GraphQLObjectType({
@@ -220,15 +219,12 @@ const mutations = new GraphQLObjectType({
                 lName:{
                     type: new GraphQLNonNull(GraphQLString)
                 },
-                fName:{
-                    type: new GraphQLNonNull(GraphQLString)
-                },
-                emergency:{
-                    type: new GraphQLNonNull(GraphQLBoolean)
-                },
-                nurseId:{
-                    type: new GraphQLNonNull(GraphQLString)
-                }
+                // emergency:{
+                //     type: new GraphQLNonNull(GraphQLBoolean)
+                // },
+                // nurseId:{
+                //     type: new GraphQLNonNull(GraphQLString)
+                // }
             },
             resolve:function(root,params){
                 const patientModel = new PatientModel(params);
@@ -254,9 +250,9 @@ const mutations = new GraphQLObjectType({
                 lName:{
                     type: new GraphQLNonNull(GraphQLString)
                 },
-                patientId:{
-                    type: new GraphQLNonNull(GraphQLString)
-                }
+                // patientId:{
+                //     type: new GraphQLNonNull(GraphQLString)
+                // }
             },
             resolve:function(root,params){
                 const nurseModel = new NurseModel(params);
@@ -371,13 +367,84 @@ const mutations = new GraphQLObjectType({
                     if (err) return next(err);
                   });
             }
-        }   
-        
+        },
+        loginPatient: {
+          type: GraphQLString,
+          args: {
+            username: {
+              name: 'username',
+              type: GraphQLString
+            },
+            password: {
+              name: 'password',
+              type: GraphQLString
+            }
+          },
+
+          resolve: async function (root, params, context) {
+            const userInfo = await PatientModel.findOne({username: params.username}).exec()
+            if (!userInfo) {
+              throw new Error('Error - user not found')
+            }
+            console.log('username:', userInfo.username)
+            console.log('entered pass: ',params.password)
+
+            bcrypt.compare(params.password, userInfo.password, (err, result) => {
+              if (err) {
+                throw err
+              } else if (!result) {
+                console.log("Password doesn't match!")
+              } else {
+                console.log("Password matches!")
+              }
+            })
+            const token = jwt.sign({ _id: userInfo._id, username: userInfo.username }, JWT_SECRET, 
+              {algorithm: 'HS256', expiresIn: jwtExpirySeconds });
+            console.log('registered token:', token)
+            context.res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000, httpOnly: true});
+            return userInfo.id; 
+          }
+        },   
+        loginNurse: {
+          type: GraphQLString,
+          args: {
+            username: {
+              name: 'username',
+              type: GraphQLString
+            },
+            password: {
+              name: 'password',
+              type: GraphQLString
+            }
+          },
+
+          resolve: async function (root, params, context) {
+            const userInfo = await NurseModel.findOne({username: params.username}).exec()
+            if (!userInfo) {
+              throw new Error('Error - user not found')
+            }
+            console.log('username:', userInfo.username)
+            console.log('entered pass: ',params.password)
+
+            bcrypt.compare(params.password, userInfo.password, (err, result) => {
+              if (err) {
+                throw err
+              } else if (!result) {
+                console.log("Password doesn't match!")
+              } else {
+                console.log("Password matches!")
+              }
+            })
+            const token = jwt.sign({ _id: userInfo._id, username: userInfo.username }, JWT_SECRET, 
+              {algorithm: 'HS256', expiresIn: jwtExpirySeconds });
+            console.log('registered token:', token)
+            context.res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000, httpOnly: true});
+            return userInfo.id; 
+          }
+        },   
     }
   }
 });
 
 //
 module.exports = new GraphQLSchema({query: queryType, mutation: mutations});
-
-//TODO: Login mutations
