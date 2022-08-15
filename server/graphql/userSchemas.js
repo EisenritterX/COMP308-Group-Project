@@ -20,6 +20,7 @@ var SymptomModel = require("../models/SymptomList");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { doTypesOverlap } = require("graphql");
 const JWT_SECRET = "some_secret_key";
 const jwtExpirySeconds = 300;
 
@@ -382,12 +383,15 @@ const mutations = new GraphQLObjectType({
           },
 
           resolve: async function (root, params, context) {
+            console.log('username:', params.username)
+            // find the user with username if exist
             const userInfo = await PatientModel.findOne({username: params.username}).exec()
             if (!userInfo) {
               throw new Error('Error - user not found')
             }
             console.log('username:', userInfo.username)
             console.log('entered pass: ',params.password)
+            console.log('hash',userInfo.password)
 
             bcrypt.compare(params.password, userInfo.password, (err, result) => {
               if (err) {
@@ -405,6 +409,53 @@ const mutations = new GraphQLObjectType({
             return userInfo.id; 
           }
         },   
+        //
+        isLoggedIn:{
+          type: GraphQLString,
+          args: {
+            username:{
+              name:'username',
+              type:GraphQLString
+            }
+          },
+          resolve: function(root,params,context){
+            //
+            console.log(params)
+            console.log('in isLoggedIn.....')
+            console.log(context.req.cookies['token'])
+            console.log('token: ')
+
+            const token = context.req.cookies.token
+            console.log('token from request: ', token)
+            // if the cookie is not set, return 'auth'
+            if(!token){
+              return 'auth';
+            }
+            var payload;
+            try {
+              // Parse the JWT string and store the result in `payload`.
+              // Note that we are passing the key in this method as well. This method will throw an error
+              // if the token is invalid (if it has expired according to the expiry time we set on sign in),
+              // or if the signature does not match
+              payload = jwt.verify(token, JWT_SECRET)
+            } catch (e) {
+              if (e instanceof jwt.JsonWebTokenError) {
+              // the JWT is unauthorized, return a 401 error
+              console.log('jwt error')
+              return context.res.status(401).end()
+              }
+              // otherwise, return a bad request error
+              console.log('bad request error')
+              return context.res.status(400).end()
+            }
+            console.log('username from payload: ', payload.username)
+            // Finally, token is ok, return the username given in the token
+            // res.status(200).send({ screen: payload.email });
+            return payload.username;
+          }
+          }
+        ,
+        //
         loginNurse: {
           type: GraphQLString,
           args: {
