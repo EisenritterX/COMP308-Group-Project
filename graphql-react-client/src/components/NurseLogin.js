@@ -3,7 +3,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { gql, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import PatientHome from './PatientNavBar'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -107,7 +106,7 @@ const readCookie = async()=>{
             <Button size = "lg" variant="primary" type="Button" onClick={authenticateUser}>Login</Button>
             </Form>
             </div>
-            :navigate("/patientNavBar/addReport/"+data.loginPatient)
+            :navigate("/nurseNavBar/addReport/"+data.loginNurse)
     }
         </div>
     );
