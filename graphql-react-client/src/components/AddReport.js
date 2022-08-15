@@ -35,7 +35,8 @@ mutation AddReport(
 const AddReport = () => {
   //
   let navigate = useNavigate();
-  let { patientId, nurseId } = useParams();
+  let patientIdParams = useParams();
+  let nurseIdParams = useParams();
   let bodyTemperature, heartRate, bloodPressure, respiratoryRate,dateFiled;
   // let dateFiled = new Date();
   const [addReport, { data, loading, error }] = useMutation(ADD_REPORT);
@@ -43,7 +44,6 @@ const AddReport = () => {
   if (loading) return "Submitting Report...";
   if (error) return `Submission error! ${error.message}`;
 
-  console.log(patientId,nurseId);
 
   return (
     <div className="entryform">
@@ -52,12 +52,10 @@ const AddReport = () => {
 
 
           e.preventDefault();
-          patientId= "02";
-          nurseId= "04";
           addReport({
             variables: {
-              patientId: patientId,
-              nurseId: nurseId,
+              patientId: patientIdParams.patientId,
+              nurseId: nurseIdParams.nurseId,
               bodyTemperature: parseFloat(bodyTemperature.value),
               heartRate: parseInt(heartRate.value),
               bloodPressure: parseInt(bloodPressure.value),
@@ -74,7 +72,7 @@ const AddReport = () => {
         }}
       >
         {/* <Form.Group>
-        <Form.Label> Patient ID</Form.Label>
+        <Form.Label> Nurse ID</Form.Label>
           <InputGroup className="mb-3">
             <Form.Control
               type="number"
@@ -85,20 +83,20 @@ const AddReport = () => {
               placeholder={nurseId}
             />
           </InputGroup>
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group>
-        <Form.Label> Nurse ID</Form.Label>
+        <Form.Label> Patient ID</Form.Label>
           <InputGroup className="mb-3">
             <Form.Control
               type="number"
               name="nurseId"
               ref={(node) => {
-                patientId = patientId;
+                patientIdParams.patientId = patientIdParams.patientId;
               }}
-              placeholder={patientId}
+              placeholder={patientIdParams.patientId}
             />
           </InputGroup>
-        </Form.Group> */}
+        </Form.Group>
         <Form.Group>
           <Form.Label> Body Temperature</Form.Label>
           <InputGroup className="mb-3">

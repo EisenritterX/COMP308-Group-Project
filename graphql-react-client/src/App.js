@@ -50,7 +50,9 @@ function App() {
           </Route>
 
           <Route path="/patientNavBar" element={<PatientNavBar/>}>
-            <Route path = "addReport" element={<AddReport/>}/>
+            <Route path = "addReport" element={<AddReport/>}>
+              <Route path = ":patientId" element={<AddReport/>}/>
+            </Route>
           </Route>
 
           <Route path="/nurseNavBar" element={<NurseNavBar/>}>

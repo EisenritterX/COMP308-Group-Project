@@ -406,11 +406,11 @@ const mutations = new GraphQLObjectType({
               {algorithm: 'HS256', expiresIn: jwtExpirySeconds });
             console.log('registered token:', token)
             context.res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000, httpOnly: true});
-            return userInfo.id; 
+            return userInfo._id; 
           }
         },   
         //
-        isLoggedIn:{
+        isLoggedInPatient:{
           type: GraphQLString,
           args: {
             username:{

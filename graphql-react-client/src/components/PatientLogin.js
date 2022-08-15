@@ -14,7 +14,7 @@ const LOGIN_USER = gql`
 //
 const LOGGED_IN_USER = gql`
     mutation LoggedInPatient( $username: String! ) {
-        isLoggedIn( username: $username ) 
+        isLoggedInPatient( username: $username ) 
     }
 `;
 
@@ -42,15 +42,16 @@ function PatientLogin(props){
     const authenticateUser = async () => {
         try {
             console.log("authenticate user");
-            console.log(username)
+
             const results = await loginPatient( { variables: { username: username.value, 
                 password: password.value }  });
+            console.log(results);
             const {data} = results;
-            const loginPatientVar = data.loginPatient;
-            console.log('results from login user:',loginPatientVar)
+            const loginPatientId = data.loginPatient;
+            console.log('results from login user:',loginPatientId)
             //process the response
             if (results !== undefined) {
-                setScreen(loginPatientVar);
+                setScreen(loginPatientId);
             }
 
         }
@@ -112,7 +113,7 @@ function PatientLogin(props){
             <Button size = "lg" variant="primary" type="Button" onClick={authenticateUser}>Login</Button>
             </Form>
             </div>
-            :navigate("/nurseNavBar/reportList")
+            :navigate("/patientNavBar/addReport/"+data.loginPatient)
     }
         </div>
     );
