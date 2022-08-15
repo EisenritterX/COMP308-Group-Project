@@ -22,25 +22,33 @@ const LOGGED_IN_NURSE = gql`
 function NurseLogin(props){
     //state variable for login
     const navigate = useNavigate();
-    let username, password;
+
+    const [loginNurse, { data, loading, error }] = useMutation(LOGIN_NURSE);
+
+    const[isLoggedIn, {loading1,error1}] = useMutation(LOGGED_IN_NURSE,{
+        onCompleted:(data1)=> console.log("Data from mutation", data1),
+        onError:(error1)=> console.error("Error in mutation",error1)
+    });
+
+    //state variable for the screen, admin or user
     const [id, setId] = useState('auth');
-    const [loginUser, { data, loading, error }] = useMutation(LOGIN_NURSE);
-    const [isLoggedIn, { loading1, error1 }] = useMutation(LOGGED_IN_NURSE, {
-        onCompleted: (data1) => console.log("Data from mutation", data1),
-        onError: (error1) => console.error("Error in mutation", error1),
-      });
+    const [screen, setScreen] = useState('auth');
+
+    //store input field data, user name and password
+    let [username, setUsername] = useState();
+    let [password, setPassword] = useState();
 
     const authenticateUser = async () => {
         try {
             console.log(username);
-            const results = await loginUser( { variables: { username: username.value, 
+            const results = await loginNurse( { variables: { username: username.value, 
                 password: password.value }  });
             const {data} = results;
-            const loginUserVar = data.loginNurse;
+            const loginNurseId = data.loginNurse;
             console.log(results);
-            console.log('results from login user:', loginUserVar)
-            if (loginUserVar !== undefined) {
-                readCookie(loginUserVar);
+            console.log('results from login user:', loginNurseId)
+            if (results !== undefined) {
+                setScreen(loginNurseId);
             }
         }
         catch (error) {
@@ -49,42 +57,59 @@ function NurseLogin(props){
 
     }; 
 
-    //check if the user already logged-in
-    const readCookie = async (usernamec) => {
-        try {
-            console.log('reading cookie');
-            const results = await isLoggedIn( { variables: { username: username.value } });
-            const {data} = results;
-            const isLoggedInVar = data.isLoggedIn
-            console.log('auth result from graphql server: ', isLoggedInVar)
+//check if the user already logged-in
+const readCookie = async()=>{
+    try{
+        console.log('--- in readCookie function ---');
 
-        if (isLoggedInVar !== undefined) {
-            console.log("nd")
-        }
-        } catch (e) {
-            setId('auth');
-            console.log('error: ', e);
-        }
-    };
+    const results = await isLoggedIn( { variables: { username: username.value } });
+
+    const {data} = results;
+    const isLoggedInVar = data.isLoggedIn
+    console.log('auth result from graphql server: ', isLoggedInVar)
+
+    if (isLoggedInVar !== undefined) {
+        setScreen(isLoggedInVar);
+    }
+    } catch (e) {
+        setScreen('auth');
+        console.log('error: ', e);
+    }
+};
 
 
-    return(
-      <Form>
-      <h1>Nurse Login</h1>
-      <Form.Group>
-          <Form.Label> Username</Form.Label>
-          <Form.Control type="text"  name="username" ref={node => {username = node; }} 
-              placeholder="Username:" />
-      </Form.Group>                     
+    useEffect(() => {
+        readCookie();
+    }, []);
+    //
+    if (loading) return 'Submitting...';
+    if (error) return `Submission error! ${error.message}`;
+    //
 
-      <Form.Group>
-          <Form.Label> Password:</Form.Label>
-          <Form.Control type="password"  name="password" ref={node => {password = node; }} 
-              placeholder="Password:" />
-      </Form.Group>  
 
-      <Button size = "lg" variant="primary" type="Button" onClick={authenticateUser}>Login</Button>
-      </Form>
+    return (
+        <div className="entryform">
+        {screen === 'auth'?<div>
+        <h1>Patient Login</h1>
+        <Form>
+            <Form.Group>
+                <Form.Label> Username</Form.Label>
+                <Form.Control type="text"  name="username" ref={node => {username = node; }} 
+                    placeholder="Username:" />
+            </Form.Group>                     
+
+            <Form.Group>
+                <Form.Label> Password:</Form.Label>
+                <Form.Control type="password"  name="password" ref={node => {password = node; }} 
+                    placeholder="Password:" />
+            </Form.Group>  
+
+            <Button size = "lg" variant="primary" type="Button" onClick={authenticateUser}>Login</Button>
+            </Form>
+            </div>
+            :navigate("/patientNavBar/addReport/"+data.loginPatient)
+    }
+        </div>
     );
 }
 

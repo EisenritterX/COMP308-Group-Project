@@ -470,16 +470,15 @@ const mutations = new GraphQLObjectType({
           },
           resolve: async function (root, params, context) {
             console.log('username:', params.username)
-            // find the user with username if exists
+            // find the user with username if exist
             const userInfo = await NurseModel.findOne({username: params.username}).exec()
-            console.log(userInfo)
             if (!userInfo) {
               throw new Error('Error - user not found')
             }
             console.log('username:', userInfo.username)
             console.log('entered pass: ',params.password)
-            console.log('hash', userInfo.password)
-            // check if the password is correct
+            console.log('hash',userInfo.password)
+
             bcrypt.compare(params.password, userInfo.password, (err, result) => {
               if (err) {
                 throw err
@@ -489,20 +488,12 @@ const mutations = new GraphQLObjectType({
                 console.log("Password matches!")
               }
             })
-            // sign the given payload (arguments of sign method) into a JSON Web Token 
-            // and which expires 300 seconds after issue
             const token = jwt.sign({ _id: userInfo._id, username: userInfo.username }, JWT_SECRET, 
               {algorithm: 'HS256', expiresIn: jwtExpirySeconds });
             console.log('registered token:', token)
-
-            // set the cookie as the token string, with a similar max age as the token
-            // here, the max age is in milliseconds
             context.res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000, httpOnly: true});
-            //context.res.status(200).send({ screen: userInfo.username });
-            return ""+userInfo._id; 
-            //return { screen: userInfo.username }
-            //return {token, userId: userInfo._id}
-          } //end of resolver function
+            return userInfo._id; 
+          }
         },
         isLoggedInNurse: {
           type: GraphQLString,

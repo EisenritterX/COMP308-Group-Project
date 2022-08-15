@@ -23,7 +23,6 @@ function PatientLogin(props){
     //state variable for login
     const navigate = useNavigate();
 
-
     const [loginPatient, { data, loading, error }] = useMutation(LOGIN_USER);
 
     const[isLoggedIn, {loading1,error1}] = useMutation(LOGGED_IN_USER,{
@@ -66,11 +65,8 @@ function PatientLogin(props){
         try{
             console.log('--- in readCookie function ---');
 
-                    //
-        //const results = await axios.get('/read_cookie');
         const results = await isLoggedIn( { variables: { username: username.value } });
-        // 
-        //const strResults = JSON.stringify(results
+
         const {data} = results;
         const isLoggedInVar = data.isLoggedIn
         console.log('auth result from graphql server: ', isLoggedInVar)
