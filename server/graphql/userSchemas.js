@@ -417,15 +417,18 @@ const mutations = new GraphQLObjectType({
               type: GraphQLString
             }
           },
-
           resolve: async function (root, params, context) {
+            console.log('username:', params.username)
+            // find the user with username if exists
             const userInfo = await NurseModel.findOne({username: params.username}).exec()
+            console.log(userInfo)
             if (!userInfo) {
               throw new Error('Error - user not found')
             }
             console.log('username:', userInfo.username)
             console.log('entered pass: ',params.password)
-
+            console.log('hash', userInfo.password)
+            // check if the password is correct
             bcrypt.compare(params.password, userInfo.password, (err, result) => {
               if (err) {
                 throw err
@@ -435,13 +438,69 @@ const mutations = new GraphQLObjectType({
                 console.log("Password matches!")
               }
             })
+            // sign the given payload (arguments of sign method) into a JSON Web Token 
+            // and which expires 300 seconds after issue
             const token = jwt.sign({ _id: userInfo._id, username: userInfo.username }, JWT_SECRET, 
               {algorithm: 'HS256', expiresIn: jwtExpirySeconds });
             console.log('registered token:', token)
+
+            // set the cookie as the token string, with a similar max age as the token
+            // here, the max age is in milliseconds
             context.res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000, httpOnly: true});
-            return userInfo.id; 
+            //context.res.status(200).send({ screen: userInfo.username });
+            return ""+userInfo._id; 
+            //return { screen: userInfo.username }
+            //return {token, userId: userInfo._id}
+          } //end of resolver function
+        },
+        isLoggedInNurse: {
+          type: GraphQLString,
+          args: {
+            username: {
+              name: 'username',
+              type: GraphQLString
+            }
+          },
+          resolve: function (root, params, context) {
+            //
+            console.log(params)
+            console.log('in isLoggedIn.....')
+            console.log(context.req.cookies['token'])
+            //const req = context.req;
+            //const res = context.res;
+            console.log('token: ')
+            //
+            // Obtain the session token from the requests cookies,
+            // which come with every request
+            const token = context.req.cookies.token
+            console.log('token from request: ',token)
+            // if the cookie is not set, return 'auth'
+            if (!token) {
+              return 'auth';
+            }
+            var payload;
+            try {
+              // Parse the JWT string and store the result in `payload`.
+              // Note that we are passing the key in this method as well. This method will throw an error
+              // if the token is invalid (if it has expired according to the expiry time we set on sign in),
+              // or if the signature does not match
+              payload = jwt.verify(token, JWT_SECRET)
+            } catch (e) {
+              if (e instanceof jwt.JsonWebTokenError) {
+              // the JWT is unauthorized, return a 401 error
+              console.log('jwt error')
+              return context.res.status(401).end()
+              }
+              // otherwise, return a bad request error
+              console.log('bad request error')
+              return context.res.status(400).end()
+            }
+            console.log('username from payload: ', payload.username)
+            // Finally, token is ok, return the username given in the token
+            // res.status(200).send({ screen: payload.username });
+            return payload.username;
           }
-        },   
+        } //   
     }
   }
 });

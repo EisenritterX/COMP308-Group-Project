@@ -13,32 +13,61 @@ const LOGIN_NURSE = gql`
     }
 `;
 
-function NurseLogin(props){
-  //state variable for login
-  const navigate = useNavigate();
-  const [id, setId] = useState('auth');
-  let [username, setUsername] = useState();
-  let [password, setPassword] = useState();
-  const [loginNurse, { data, loading, error }] = useMutation(LOGIN_NURSE);
+const LOGGED_IN_NURSE = gql`
+    mutation isLoggedInNurse( $username: String! ) {
+        isLoggedInNurse( username: $username ) 
+    }
+`;
 
-  const authenticateUser = async () => {
-    try {
-        console.log("authenticate user");
-        const results = await loginNurse( { variables: { username: username.value, 
-            password: password.value }  });
-        const {data} = results;
-        const loginNurseVar = data.loginNurse;
-        console.log('results from login user:',loginNurseVar)
-        if (results !== undefined) {
-            setId(loginNurseVar);
-            navigate('/nurseNavBar')
+function NurseLogin(props){
+    //state variable for login
+    const navigate = useNavigate();
+    let username, password;
+    const [id, setId] = useState('auth');
+    const [loginUser, { data, loading, error }] = useMutation(LOGIN_NURSE);
+    const [isLoggedIn, { loading1, error1 }] = useMutation(LOGGED_IN_NURSE, {
+        onCompleted: (data1) => console.log("Data from mutation", data1),
+        onError: (error1) => console.error("Error in mutation", error1),
+      });
+
+    const authenticateUser = async () => {
+        try {
+            console.log(username);
+            const results = await loginUser( { variables: { username: username.value, 
+                password: password.value }  });
+            const {data} = results;
+            const loginUserVar = data.loginNurse;
+            console.log(results);
+            console.log('results from login user:', loginUserVar)
+            if (loginUserVar !== undefined) {
+                readCookie(loginUserVar);
+            }
+        }
+        catch (error) {
+            console.log(error);
         }
 
-    }
-    catch (error) {
-        console.log(error);
-    }
-  };
+    }; 
+
+    //check if the user already logged-in
+    const readCookie = async (usernamec) => {
+        try {
+            console.log('reading cookie');
+            const results = await isLoggedIn( { variables: { username: username.value } });
+            const {data} = results;
+            const isLoggedInVar = data.isLoggedIn
+            console.log('auth result from graphql server: ', isLoggedInVar)
+
+        if (isLoggedInVar !== undefined) {
+            console.log("nd")
+        }
+        } catch (e) {
+            setId('auth');
+            console.log('error: ', e);
+        }
+    };
+
+
     return(
       <Form>
       <h1>Nurse Login</h1>
