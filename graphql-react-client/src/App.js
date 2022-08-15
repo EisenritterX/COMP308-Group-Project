@@ -26,7 +26,7 @@ import NurseSignUp from './components/NurseSignUp';
 import PatientNavBar from './components/PatientNavBar';
 
 import NurseNavBar from './components/NurseNavBar';
-
+import PatientList from './components/PatientList';
 import PatientReportList from './components/ReportList';
 import AddReport from './components/AddReport';
 // import StatusPage from './components/Sta'
@@ -39,7 +39,6 @@ function App() {
       <div>
         <Routes>
           <Route index element={<Home />} />
-
 
           {/* <Route path = "status" element={<StatusPage/>}/> */}
           <Route path = "/" element={<Home />}>
@@ -56,6 +55,7 @@ function App() {
           </Route>
 
           <Route path="/nurseNavBar" element={<NurseNavBar/>}>
+            <Route path = "patientList" element={<PatientList/>}/>
             <Route path = "reportList" element={<PatientReportList/>}/>
             <Route path = "addReport" element={<AddReport/>}>
               <Route path = ":nurseId" element={<AddReport/>}/>
