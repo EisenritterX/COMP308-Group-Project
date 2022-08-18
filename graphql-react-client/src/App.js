@@ -29,7 +29,7 @@ import Navbar from './components/Navbar';
 import PatientNavBar from './components/PatientNavBar';
 
 import NurseNavBar from './components/NurseNavBar';
-
+import PatientList from './components/PatientList';
 import PatientReportList from './components/ReportList';
 import AddReport from './components/AddReport';
 
@@ -62,6 +62,7 @@ function App() {
           </Route>
 
           <Route path="/nurseNavBar" element={<NurseNavBar/>}>
+            <Route path = "patientList" element={<PatientList/>}/>
             <Route path = "reportList" element={<PatientReportList/>}/>
             <Route path = "addReport" element={<AddReport/>}>
               <Route path = ":nurseId" element={<AddReport/>}/>

@@ -27,6 +27,7 @@ function NurseNavBar(props){
                 <Nav className="mr-auto">
                     <Nav.Link as ={Link} to="reportList">Report List</Nav.Link>
                     <Nav.Link as ={Link} to="addReport">Add Report</Nav.Link>
+                    <Nav.Link as ={Link} to="patientList">Patient List</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             </Container>
