@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 //
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache,createHttpLink } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
 //
 import {
@@ -14,10 +14,15 @@ import {
   Link
 } from "react-router-dom";
 //
+const link = createHttpLink({
+  uri: 'http://localhost:4000/graphql',
+  credentials: 'include'
+});
 //
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  link,
 });
 
 //

@@ -64,6 +64,7 @@ const readCookie = async()=>{
     const results = await isLoggedIn( { variables: { username: username.value } });
 
     const {data} = results;
+    console.log('auth result from graphql server: ', data)
     const isLoggedInVar = data.isLoggedIn
     console.log('auth result from graphql server: ', isLoggedInVar)
 
@@ -89,7 +90,7 @@ const readCookie = async()=>{
     return (
         <div className="entryform">
         {screen === 'auth'?<div>
-        <h1>Patient Login</h1>
+        <h1>Nurse Login</h1>
         <Form>
             <Form.Group>
                 <Form.Label> Username</Form.Label>

@@ -391,7 +391,8 @@ const mutations = new GraphQLObjectType({
             }
             console.log('username:', userInfo.username)
             console.log('entered pass: ',params.password)
-            console.log('hash',userInfo.password)
+            console.log('id:', userInfo._id)
+            // console.log('hash',userInfo.password)
 
             bcrypt.compare(params.password, userInfo.password, (err, result) => {
               if (err) {
@@ -405,8 +406,9 @@ const mutations = new GraphQLObjectType({
             const token = jwt.sign({ _id: userInfo._id, username: userInfo.username }, JWT_SECRET, 
               {algorithm: 'HS256', expiresIn: jwtExpirySeconds });
             console.log('registered token:', token)
+            console.log("userinfo",userInfo.username);
             context.res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000, httpOnly: true});
-            return userInfo._id; 
+            return userInfo.username; 
           }
         },   
         //
@@ -491,8 +493,10 @@ const mutations = new GraphQLObjectType({
             const token = jwt.sign({ _id: userInfo._id, username: userInfo.username }, JWT_SECRET, 
               {algorithm: 'HS256', expiresIn: jwtExpirySeconds });
             console.log('registered token:', token)
+            console.log("userinfo");
             context.res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000, httpOnly: true});
-            return userInfo._id; 
+
+            return userInfo.username; 
           }
         },
         isLoggedInNurse: {

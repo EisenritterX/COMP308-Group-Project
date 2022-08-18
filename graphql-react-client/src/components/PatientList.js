@@ -23,25 +23,20 @@ const PatientList=()=>{
             <Table>
                 <tbody>
                     <tr>
-                        
                         <th>patientId</th>
                         <th>username</th>
                         <th>fname</th>
                         <th>lname</th>
-                       
                     </tr>
                     {data.reports.map((patient,index)=>(
                         <tr key={index}>
-                           
                             <td>{patient.patientId}</td>
                             <td>{patient.fname}</td>
                             <td>{patient.lname}</td>
-                           
                         </tr>
                     ))}
                 </tbody>
             </Table> 
-
              <div className="center">
                 <button className='center' onClick={()=>refetch()}>
                     Refetch

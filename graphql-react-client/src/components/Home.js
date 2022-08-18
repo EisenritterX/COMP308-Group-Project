@@ -1,4 +1,4 @@
-import React,{Component} from "react"
+import React, { Component,useState } from "react";
 //
 import {
   BrowserRouter as Router,
@@ -6,39 +6,55 @@ import {
   Link,
   Redirect,
   Routes,
-  Outlet
+  Outlet,
+  useNavigate,
 } from "react-router-dom";
 //
-// This app requires react-bootstrap and bootstrap installed: 
+// This app requires react-bootstrap and bootstrap installed:
 //  npm install react-bootstrap bootstrap
 //
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Container from 'react-bootstrap/Container';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./../App.css";
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Stack from "react-bootstrap/Stack";
 // ADD COMPONENTS HERE
 
-function Home(props){
-    return(
-    <div>
-        <Navbar bg="primary" variant="dark" expand="lg">
-            <Container>
-            <Navbar.Brand href="/">COMP308 Group Project</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                <Nav.Link as ={Link} to="/patientSignUp">Patient Sign Up</Nav.Link>
-                <Nav.Link as ={Link} to="/patientLogin">Patient Login</Nav.Link>
-                <Nav.Link as ={Link} to="/nurseSignUp">Nurse Sign Up</Nav.Link>
-                <Nav.Link as ={Link} to="/nurseLogin">Nurse Login</Nav.Link>
-                </Nav>
-            </Navbar.Collapse>
-            </Container>
-        </Navbar>
-
-        <Outlet/>
-    </div>
-    );
+function Home(props) {
+  const navigate = useNavigate();
+    // read the info from props, coming from the ancestor component
+    const { screen, setScreen } = props;
+    // return a stateful value and funcion to update it
+    const [data, setData] = useState();
+    //
+  
+  return (
+      <div>
+      <p>{screen}</p>
+      <p>{data}</p>
+        <Container className="text-center text-justify">
+          <Stack className="text-center text-justify" gap={3}>
+            <h1>{"Welcome to Group 5 Patient Care System"}</h1>
+            <h2>{"Please select your status:"}</h2>
+            <ButtonGroup aria-label="Basic example" size="lg">
+              <Button
+                variant="primary"
+                onClick={() => navigate("/nurseLogin/")}
+              >
+                Nurse
+              </Button>
+              <Button
+                variant="outline-primary"
+                onClick={() => navigate("/patientNavBar/")}
+              >
+                Patient
+              </Button>
+            </ButtonGroup>
+          </Stack>
+        </Container>
+      </div>
+  );
 }
 
 export default Home;
